@@ -1,0 +1,187 @@
+{
+ "builtAt": "2026-11-05T02:59:08.800Z",
+ "tables": [
+  {
+   "name": "meta",
+   "sql": "CREATE TABLE meta (\n  key TEXT PRIMARY KEY,\n  value TEXT\n)",
+   "files": [
+    {
+     "path": "meta-01.json",
+     "bytes": 140,
+     "hash": "d17eebed54b5"
+    }
+   ]
+  },
+  {
+   "name": "topics",
+   "sql": "CREATE TABLE topics (\n  topic_id INTEGER PRIMARY KEY,\n  title TEXT NOT NULL,\n  format_key TEXT NOT NULL,\n  url TEXT NOT NULL,\n  starter TEXT,\n  started_at TEXT,\n  replies INTEGER,\n  views INTEGER,\n  pages_total INTEGER,\n  pages_fetched INTEGER DEFAULT 0,\n  first_page_fetched INTEGER DEFAULT 0,\n  last_page_fetched INTEGER DEFAULT 0,\n  fully_fetched INTEGER DEFAULT 0,\n  last_post_at TEXT,\n  locked INTEGER,\n  pinned INTEGER,\n  listing_page INTEGER\n)",
+   "files": [
+    {
+     "path": "topics-01.json",
+     "bytes": 789093,
+     "hash": "bbfb3eafdfba"
+    }
+   ]
+  },
+  {
+   "name": "formats",
+   "sql": "CREATE TABLE formats (\n  format_key TEXT PRIMARY KEY,\n  format_name TEXT NOT NULL,\n  category TEXT NOT NULL,          -- random_draw | performance | completion | prediction | jury_vote | first_come | mixed | to_verify | other\n  mechanism TEXT,                  -- short description of how winners are chosen\n  evidence TEXT,                   -- quote from the rules that establishes the mechanism\n  evidence_url TEXT,\n  decided_by TEXT                  -- 'rules_text' (automatic, quote found) | 'review' (format reviewed by hand)\n)",
+   "files": [
+    {
+     "path": "formats-01.json",
+     "bytes": 347739,
+     "hash": "14155ddc0e58"
+    }
+   ]
+  },
+  {
+   "name": "editions",
+   "sql": "CREATE TABLE editions (\n  edition_id TEXT PRIMARY KEY,     -- 'E<topic_id>'\n  topic_id INTEGER NOT NULL REFERENCES topics(topic_id),\n  challenge_name TEXT NOT NULL,\n  format_key TEXT NOT NULL,\n  format_name TEXT NOT NULL,\n  category TEXT NOT NULL,\n  mechanism TEXT,\n  mechanism_evidence TEXT,\n  mechanism_evidence_url TEXT,\n  classification_basis TEXT,       -- edition_text | format_review | none\n  published_at TEXT,\n  start_date TEXT,\n  end_date TEXT,\n  results_date TEXT,\n  year INTEGER,\n  period_label TEXT,\n  rules_excerpt TEXT,\n  eligibility TEXT,\n  prize_pool_amount REAL,\n  prize_pool_currency TEXT,\n  prize_pool_source TEXT,\n  winners_announced INTEGER,       -- \"Congrats to the N winners\"\n  winners_listed INTEGER,          -- winners whose name we extracted\n  participants_known INTEGER,      -- distinct eligible posters counted on fully fetched topics\n  participants_basis TEXT,\n  entries_known INTEGER,\n  draw_method TEXT,\n  results_comment_id INTEGER,\n  results_url TEXT,\n  external_urls TEXT,              -- JSON array\n  results_status TEXT,             -- names_published | names_external | names_partial | names_not_published | no_results_found | not_collected\n  reliability TEXT,                -- high | medium | low\n  notes TEXT\n)",
+   "files": [
+    {
+     "path": "editions-01.json",
+     "bytes": 8027681,
+     "hash": "8da41a71fdb9"
+    }
+   ]
+  },
+  {
+   "name": "awards",
+   "sql": "CREATE TABLE awards (\n  award_id TEXT PRIMARY KEY,\n  edition_id TEXT NOT NULL REFERENCES editions(edition_id),\n  member TEXT NOT NULL,            -- exactly as written in the source\n  member_key TEXT NOT NULL,        -- lower-case grouping key (usernames are case-insensitive)\n  identity_type TEXT NOT NULL,     -- results_post | external_list (where the name was published)\n  member_id INTEGER,               -- forum profile id when the source links to the profile\n  rank INTEGER,\n  score TEXT,                      -- multiplier / points / odds as published\n  prize_amount REAL,\n  prize_currency TEXT,\n  prize_usd REAL,                  -- confirmed: USD amount published next to the winner's name\n  prize_usd_partial REAL,          -- partially documented: USD amount read from the official prize table for that rank\n  prize_usd_est REAL,              -- estimated: conversion of a non-USD amount (see fx_rates); never mixed with the above\n  prize_kind TEXT,                 -- cash | bonus | coupon | points | unknown\n  prize_basis TEXT,                -- published (amount next to the name) | schedule (amount from the rules' prize table for that rank) | unknown\n  category TEXT NOT NULL,\n  results_date TEXT,\n  source_url TEXT NOT NULL,\n  source_comment_id INTEGER,\n  source_kind TEXT NOT NULL,       -- forum_post | pastebin | external\n  evidence TEXT,\n  verification TEXT NOT NULL,      -- confirmed_official | confirmed_external | probable | estimated | unknown | contradictory\n  collected_at TEXT\n)",
+   "files": [
+    {
+     "path": "awards-01.json",
+     "bytes": 8388818,
+     "hash": "b3e93e17c1d4"
+    },
+    {
+     "path": "awards-02.json",
+     "bytes": 8391102,
+     "hash": "dc8856c64900"
+    },
+    {
+     "path": "awards-03.json",
+     "bytes": 8394716,
+     "hash": "891c516c5fe1"
+    },
+    {
+     "path": "awards-04.json",
+     "bytes": 8393352,
+     "hash": "b67389c2ee67"
+    },
+    {
+     "path": "awards-05.json",
+     "bytes": 8393859,
+     "hash": "d6c99de11594"
+    },
+    {
+     "path": "awards-06.json",
+     "bytes": 8394557,
+     "hash": "8633dbc8c1c9"
+    },
+    {
+     "path": "awards-07.json",
+     "bytes": 8393460,
+     "hash": "bc32397d68b5"
+    },
+    {
+     "path": "awards-08.json",
+     "bytes": 8393952,
+     "hash": "784daddfec9a"
+    },
+    {
+     "path": "awards-09.json",
+     "bytes": 827257,
+     "hash": "9ecac9583ac1"
+    }
+   ]
+  },
+  {
+   "name": "award_sources",
+   "sql": "CREATE TABLE award_sources (\n  award_id TEXT NOT NULL REFERENCES awards(award_id),\n  source_url TEXT NOT NULL,\n  source_kind TEXT NOT NULL,\n  member_as_written TEXT,\n  evidence TEXT,\n  PRIMARY KEY (award_id, source_url)\n)",
+   "files": []
+  },
+  {
+   "name": "participants",
+   "sql": "CREATE TABLE participants (\n  edition_id TEXT NOT NULL REFERENCES editions(edition_id),\n  member TEXT NOT NULL,\n  member_id INTEGER,\n  posts INTEGER NOT NULL,\n  first_comment_id INTEGER,\n  first_posted_at TEXT,\n  PRIMARY KEY (edition_id, member)\n)",
+   "files": [
+    {
+     "path": "participants-01.json",
+     "bytes": 3790482,
+     "hash": "d0d194dc2cb8"
+    }
+   ]
+  },
+  {
+   "name": "member_links",
+   "sql": "CREATE TABLE member_links (\n  a TEXT NOT NULL,\n  a_type TEXT NOT NULL,\n  b TEXT NOT NULL,\n  b_type TEXT NOT NULL,\n  kind TEXT NOT NULL,\n  evidence TEXT,\n  edition_id TEXT,\n  confidence TEXT,\n  PRIMARY KEY (a, b, edition_id)\n)",
+   "files": [
+    {
+     "path": "member_links-01.json",
+     "bytes": 5605,
+     "hash": "c4ba8d87df47"
+    }
+   ]
+  },
+  {
+   "name": "anomalies",
+   "sql": "CREATE TABLE anomalies (\n  id INTEGER PRIMARY KEY AUTOINCREMENT,\n  kind TEXT NOT NULL,\n  edition_id TEXT,\n  member TEXT,\n  details TEXT,\n  source_url TEXT\n)",
+   "files": [
+    {
+     "path": "anomalies-01.json",
+     "bytes": 26947,
+     "hash": "a1ea0db43ff4"
+    }
+   ]
+  },
+  {
+   "name": "missing_data",
+   "sql": "CREATE TABLE missing_data (\n  id INTEGER PRIMARY KEY AUTOINCREMENT,\n  edition_id TEXT,\n  field TEXT NOT NULL,\n  reason TEXT\n)",
+   "files": [
+    {
+     "path": "missing_data-01.json",
+     "bytes": 261087,
+     "hash": "dc56ae90d4ff"
+    }
+   ]
+  },
+  {
+   "name": "sources",
+   "sql": "CREATE TABLE sources (\n  url TEXT PRIMARY KEY,\n  kind TEXT NOT NULL,              -- board_page | topic_page | pastebin | claim_link | image | other\n  topic_id INTEGER,\n  status TEXT,                     -- fetched | not_fetched | inaccessible | not_public\n  fetched_at TEXT,\n  note TEXT\n)",
+   "files": [
+    {
+     "path": "sources-01.json",
+     "bytes": 958651,
+     "hash": "66baade894b3"
+    }
+   ]
+  },
+  {
+   "name": "fx_rates",
+   "sql": "CREATE TABLE fx_rates (\n  currency TEXT NOT NULL,\n  month TEXT NOT NULL,             -- YYYY-MM\n  usd REAL NOT NULL,               -- value of 1 unit in USD (monthly average)\n  source TEXT NOT NULL,\n  PRIMARY KEY (currency, month)\n)",
+   "files": [
+    {
+     "path": "fx_rates-01.json",
+     "bytes": 73126,
+     "hash": "50ea25899975"
+    }
+   ]
+  },
+  {
+   "name": "collection_log",
+   "sql": "CREATE TABLE collection_log (\n  id INTEGER PRIMARY KEY AUTOINCREMENT,\n  t TEXT,\n  key TEXT,\n  url TEXT,\n  status INTEGER,\n  ok INTEGER,\n  source TEXT\n)",
+   "files": [
+    {
+     "path": "collection_log-01.json",
+     "bytes": 1741231,
+     "hash": "ea2cfe582217"
+    }
+   ]
+  },
+  {
+   "name": "imports",
+   "sql": "CREATE TABLE imports (\n  id INTEGER PRIMARY KEY AUTOINCREMENT,\n  imported_at TEXT NOT NULL,\n  file TEXT,\n  editions_added INTEGER,\n  awards_added INTEGER,\n  awards_skipped_duplicates INTEGER\n)",
+   "files": []
+  }
+ ]
+}
