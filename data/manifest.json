@@ -1,5 +1,5 @@
 {
- "builtAt": "2026-11-05T02:59:08.800Z",
+ "builtAt": "2026-11-06T01:08:27.955Z",
  "tables": [
   {
    "name": "meta",
@@ -8,7 +8,7 @@
     {
      "path": "meta-01.json",
      "bytes": 140,
-     "hash": "d17eebed54b5"
+     "hash": "5b4116a2fa4a"
     }
    ]
   },
@@ -18,8 +18,8 @@
    "files": [
     {
      "path": "topics-01.json",
-     "bytes": 789093,
-     "hash": "bbfb3eafdfba"
+     "bytes": 799941,
+     "hash": "6c18ec839311"
     }
    ]
   },
@@ -29,8 +29,8 @@
    "files": [
     {
      "path": "formats-01.json",
-     "bytes": 347739,
-     "hash": "14155ddc0e58"
+     "bytes": 349851,
+     "hash": "6e381e0cd55f"
     }
    ]
   },
@@ -40,8 +40,8 @@
    "files": [
     {
      "path": "editions-01.json",
-     "bytes": 8027681,
-     "hash": "8da41a71fdb9"
+     "bytes": 8148931,
+     "hash": "3855319b9eb4"
     }
    ]
   },
@@ -52,47 +52,47 @@
     {
      "path": "awards-01.json",
      "bytes": 8388818,
-     "hash": "b3e93e17c1d4"
+     "hash": "49f035a226c9"
     },
     {
      "path": "awards-02.json",
      "bytes": 8391102,
-     "hash": "dc8856c64900"
+     "hash": "d88b30df526b"
     },
     {
      "path": "awards-03.json",
      "bytes": 8394716,
-     "hash": "891c516c5fe1"
+     "hash": "54feb188cfee"
     },
     {
      "path": "awards-04.json",
      "bytes": 8393352,
-     "hash": "b67389c2ee67"
+     "hash": "4e7bc97cec44"
     },
     {
      "path": "awards-05.json",
      "bytes": 8393859,
-     "hash": "d6c99de11594"
+     "hash": "9ac27d69f8d7"
     },
     {
      "path": "awards-06.json",
      "bytes": 8394557,
-     "hash": "8633dbc8c1c9"
+     "hash": "bc39379c89a0"
     },
     {
      "path": "awards-07.json",
      "bytes": 8393460,
-     "hash": "bc32397d68b5"
+     "hash": "f48b719d2598"
     },
     {
      "path": "awards-08.json",
      "bytes": 8393952,
-     "hash": "784daddfec9a"
+     "hash": "4b0d671ae981"
     },
     {
      "path": "awards-09.json",
-     "bytes": 827257,
-     "hash": "9ecac9583ac1"
+     "bytes": 1565211,
+     "hash": "f6bc1ee8562d"
     }
    ]
   },
@@ -107,8 +107,8 @@
    "files": [
     {
      "path": "participants-01.json",
-     "bytes": 3790482,
-     "hash": "d0d194dc2cb8"
+     "bytes": 3954106,
+     "hash": "9f417311f06f"
     }
    ]
   },
@@ -118,8 +118,8 @@
    "files": [
     {
      "path": "member_links-01.json",
-     "bytes": 5605,
-     "hash": "c4ba8d87df47"
+     "bytes": 7254,
+     "hash": "956715ba9056"
     }
    ]
   },
@@ -129,8 +129,8 @@
    "files": [
     {
      "path": "anomalies-01.json",
-     "bytes": 26947,
-     "hash": "a1ea0db43ff4"
+     "bytes": 31898,
+     "hash": "1115a8dc3cf9"
     }
    ]
   },
@@ -140,8 +140,8 @@
    "files": [
     {
      "path": "missing_data-01.json",
-     "bytes": 261087,
-     "hash": "dc56ae90d4ff"
+     "bytes": 263111,
+     "hash": "af4b8d41998d"
     }
    ]
   },
@@ -151,8 +151,8 @@
    "files": [
     {
      "path": "sources-01.json",
-     "bytes": 958651,
-     "hash": "66baade894b3"
+     "bytes": 973973,
+     "hash": "8b8c5e14d517"
     }
    ]
   },
@@ -173,8 +173,8 @@
    "files": [
     {
      "path": "collection_log-01.json",
-     "bytes": 1741231,
-     "hash": "ea2cfe582217"
+     "bytes": 1814474,
+     "hash": "0cc0232abf34"
     }
    ]
   },
